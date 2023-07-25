@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "dom",
+            "DOM.Iterable",
+            "esnext"
+        ],
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules"
+            }
+        ],
+        "baseUrl": "./",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "esnext",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": false,
+        "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
+        "noEmit": false
+    },
+    "include": [
+        "src"
+    ]
+}
