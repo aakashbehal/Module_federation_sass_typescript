@@ -1,27 +1,30 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client'
-import { ThemeProvider, DefaultTheme } from "react-jss";
-import App from './App';
+import React, { useEffect } from 'react';
 import './index.sass'
+// import { ToastProvider } from 'react-toast-notifications';
+// import { MyCustomToast } from './helpers/customToaster';
+import { Provider } from 'react-redux';
+import reducer from './store/reducer';
+export const remoteAppScope = 'singleSignOn'
+import { httpInterceptor } from './helpers/util';
+import App from './App';
 
-export interface ICustomTheme {
-    "bittersweet": string
-    "dull_lavender": string
-    "san_marino": string
-    "background": string
+
+httpInterceptor()
+
+const remoteLoginApp = (props: { store: any }) => {
+    let { store } = props;
+
+    useEffect(() => {
+        store.injectReducer(remoteAppScope, reducer)
+    }, [])
+
+    return (
+        // <ToastProvider components={{ Toast: MyCustomToast }} placement="top-center" autoDismissTimeout={10000} >
+        <Provider store={store || {}}>
+            <App />
+        </Provider>
+        // </ToastProvider >
+    )
 }
 
-export const CustomTheme: ICustomTheme = {
-    'bittersweet': "#FF7765",
-    'dull_lavender': "#9198e5",
-    'san_marino': "#3f589e",
-    'background': "rgb(232, 240, 254)",
-};
-
-const container = document.getElementById('app')!;
-const root = createRoot(container)
-root.render(
-    <ThemeProvider theme={CustomTheme}>
-        <App />
-    </ThemeProvider>
-)
+export default remoteLoginApp

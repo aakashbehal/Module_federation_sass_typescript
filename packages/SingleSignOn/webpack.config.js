@@ -1,8 +1,10 @@
 const path = require('path');
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const deps = require('./package.json').dependencies
+require('dotenv').config('./.env')
 
 module.exports = {
     entry: './src/index',
@@ -10,7 +12,6 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         port: 4001,
-        open: true,
         headers: {
             "Access-Control-Allow-Origin": "*"
         }
@@ -21,6 +22,10 @@ module.exports = {
                 test: /\.(js|jsx|ts|tsx)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
             },
             {
                 test: /\.s?ass$/,
@@ -44,7 +49,15 @@ module.exports = {
                         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
                     }
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
         ],
     },
     resolve: {
@@ -52,12 +65,15 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.DefinePlugin({
+            "process.env": JSON.stringify(process.env)
+        }),
         new MiniCssExtractPlugin(),
         new ModuleFederationPlugin({
             name: 'singleSignOn',
             filename: 'remoteEntry.js',
             exposes: {
-                './loginApp': './src/App'
+                './authApp': './src/bootstrap'
             },
             shared: {
                 ...deps,

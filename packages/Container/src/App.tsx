@@ -1,16 +1,22 @@
 import React, { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom'
-import LoginRemoteApp from './remoteApps/login';
-const RemoteLogin = lazy(() => import("singleSignOn/loginApp"))
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
+import AuthRemoteApp from './remoteApps/AuthRemoteApp';
+import { Provider, useSelector } from 'react-redux';
+import { store } from './store/index';
+const RemoteAuth = lazy(() => import("singleSignOn/authApp"))
+
 
 const App = () => {
     return (
         <>
-            <Suspense fallback={'loading...'}>
-                <Routes>
-                    <Route path='/login' element={<LoginRemoteApp LoginApp={RemoteLogin} />} />
-                </Routes>
-            </Suspense>
+            <Provider store={store}>
+                <Suspense fallback={'loading...'}>
+                    <Routes>
+                        <Route path='/authentication/*' element={<AuthRemoteApp RemoteAuth={RemoteAuth} store={store} />} />
+                        <Route path='/' element={<div>Container Application</div>} />
+                    </Routes>
+                </Suspense>
+            </Provider>
         </>
     )
 }

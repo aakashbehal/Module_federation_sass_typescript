@@ -1,4 +1,4 @@
-declare module 'singleSignOn/loginApp' {
-    const loginApp: React.ComponentType;
-    export default loginApp
+declare module 'singleSignOn/authApp' {
+    const authApp: React.ComponentType;
+    export default authApp
 }
