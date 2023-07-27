@@ -44,7 +44,8 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'container',
             remotes: {
-                'singleSignOn': 'singleSignOn@http://localhost:4001/remoteEntry.js'
+                'singleSignOn': 'singleSignOn@http://localhost:4001/remoteEntry.js',
+                'documentManager': 'documentManager@http://localhost:4002/remoteEntry.js'
             },
             shared: {
                 ...deps,

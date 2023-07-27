@@ -1,9 +1,14 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
-import AuthRemoteApp from './remoteApps/AuthRemoteApp';
+import React, { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import { Provider, useSelector } from 'react-redux';
+
 import { store } from './store/index';
-const RemoteAuth = lazy(() => import("singleSignOn/authApp"))
+import AuthRemoteApp from './remoteApps/AuthRemoteApp';
+import DocumentRemoteApp from './remoteApps/documentRemoteApp';
+
+const AuthApp = lazy(() => import("singleSignOn/authApp"))
+const DocumentApp = lazy(() => import("documentManager/documentApp"))
+
 
 
 const App = () => {
@@ -12,8 +17,12 @@ const App = () => {
             <Provider store={store}>
                 <Suspense fallback={'loading...'}>
                     <Routes>
-                        <Route path='/authentication/*' element={<AuthRemoteApp RemoteAuth={RemoteAuth} store={store} />} />
-                        <Route path='/' element={<div>Container Application</div>} />
+                        <Route path='/authentication/*' element={<AuthRemoteApp AuthApp={AuthApp} store={store} />} />
+                        <Route path='/document_manager/*' element={<DocumentRemoteApp DocumentApp={DocumentApp} store={store} />} />
+                        <Route
+                            path="/"
+                            element={<Navigate replace to="/authentication/login" />}
+                        />
                     </Routes>
                 </Suspense>
             </Provider>

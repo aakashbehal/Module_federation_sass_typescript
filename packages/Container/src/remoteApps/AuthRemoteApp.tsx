@@ -1,8 +1,8 @@
 import React from 'react';
 
-const AuthRemoteApp = ({ RemoteAuth, store }: { RemoteAuth: any, store: any }) => {
+const AuthRemoteApp = ({ AuthApp, store }: { AuthApp: any, store: any }) => {
     return <>
-        <RemoteAuth store={store} />
+        <AuthApp store={store} />
     </>
 }
 

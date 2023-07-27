@@ -13,7 +13,7 @@ import { userService } from "../services";
 import { requestForToken } from "../helpers/firebase"
 import { useNavigate } from "react-router-dom";
 
-const Login: FC = () => {
+const Login = () => {
     // const { addToast, removeAllToasts } = useToasts();
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -49,6 +49,7 @@ const Login: FC = () => {
                 // history.push('/change_password')
             } else {
                 // history.push('/documents/my_documents')
+                navigate('/document_manager/my_documents', { replace: true })
             }
         }
     }, [user])

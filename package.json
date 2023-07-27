@@ -2,7 +2,8 @@
   "name": "Micro-frontends",
   "workspaces": [
     "packages/Container",
-    "packages/SingleSignOn"
+    "packages/SingleSignOn",
+    "packages/DocumentManager"
   ],
   "version": "1.0.0",
   "description": "",
