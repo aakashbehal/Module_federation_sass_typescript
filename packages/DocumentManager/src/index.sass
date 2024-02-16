@@ -1,4 +1,5 @@
-@import "~bootstrap/scss/bootstrap"
+// @import "~bootstrap/scss/bootstrap"
+@import "./colors"
 
 *
     margin: 0
@@ -30,3 +31,421 @@ html, body
     font-family: 'VisbyCF-Regular', Arial, Helvetica, sans-serif
     letter-spacing: 0.6px
     background-color: rgb(247, 247, 247)
+
+.no_padding
+    padding: 0 !important
+.dropdown-menu
+    padding: 0 !important
+    .dropdown-item
+        padding: .5rem 1.5rem
+    .dropdown-item:not(:last-child)
+        border-bottom: 1px solid #dadada
+
+.spinner
+    animation: spin infinite 1s linear
+
+@keyframes spin
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
+
+.dropdown-item
+    &:active
+        background-color: #f8f9fa
+        color: black
+
+.form_container
+    background-color: #e9ecef
+    padding: 15px 10px
+    border-radius: 1rem
+    .form-control, .form-control:focus
+        color: #000000
+        font-size: 16px
+        font-weight: 100
+        background-color: #e9ecef
+        border-color: #b4bac0
+        outline: 0
+.select_custom
+    &.white
+        background-color: white !important
+    &.light_grey
+        background: #f7f7f7 !important
+    &:disabled
+        background: #dddddd !important
+        #form-file-upload
+            height: 16rem
+            width: 28rem
+            max-width: 100%
+            text-align: center
+            position: relative
+.label_custom
+    position: absolute
+    top: -20px
+    left: 25px
+    background: #e9ecef
+    line-height: 1rem
+    padding: 0 0.5rem
+    font-weight: 600
+    color: #747678
+    font-size: 14px
+    &.no_left
+        left: 5px
+    &.white
+        background: white
+    &.light_grey
+        background: #f7f7f7
+.input_custom, .select_custom
+    background: none
+    height: 3rem !important
+.input_custom, .select_custom
+    background: none
+    height: 3rem !important
+::-webkit-scrollbar
+    width: 10px
+    height: 10px
+
+::-webkit-scrollbar-track
+    border-radius: 12px
+    padding: 2px
+    background-color: rgba(0,0,0,0.1)
+
+::-webkit-scrollbar-thumb
+    border-radius: 10px
+    border: 2px solid #dedede
+    background-color: transparentize($bittersweet, 0.4)
+    &:hover
+        border: transparentize($bittersweet, 0.4)
+.table_top_section
+    align-items: baseline
+    justify-content: right
+    padding-right: 1rem
+.table_header_container
+    display: flex
+    font-size: 14px
+    position: relative
+    min-width: 220px
+    justify-content: space-around
+    .sorting
+        position: absolute
+        right: 0
+        svg
+            cursor: pointer
+            fill: #484848
+        svg.active
+            fill: white
+.share_With_parent
+    display: flex
+    justify-content: center
+    padding: .1rem
+    .shared_with, .profile_pic_share
+        padding: 0rem 0.65rem
+        color: white
+        font-weight: 600
+        border-radius: 50%
+        border: 3px solid white
+        &:nth-child(even)
+            background: lighten(red, 25)
+        &:nth-child(odd)
+            background: lighten(black,10)
+    .profile_pic_share
+        padding: 0
+
+table
+    thead
+        th
+            background-color: black
+            position: sticky
+            top: -1px
+            z-index: 99
+    tr.no_records
+        line-height: 35px
+        background-color: #e9ecef
+        text-align: center
+        th
+            background: none
+    tbody
+        background: white
+
+.table-sm td, .table-sm th
+    padding: .3rem .7rem
+
+.td_string
+    text-align: left
+.td_number
+    text-align: right
+
+.file_name
+    text-overflow: ellipsis
+    width: 400px
+    overflow: hidden
+    white-space: nowrap
+
+.required_document_input
+    @media ( min-width: 980px ) and (max-width: 1366px)
+        flex: 0 0 70%
+        max-width: 70%
+.required_document_button
+    @media ( min-width: 980px ) and (max-width: 1366px)
+        flex: 0 0 30%
+        max-width: 30%
+.summary_history_button
+    background: $bittersweet
+    border: 1px solid $bittersweet
+    margin-right: 1rem
+    padding: .4rem 3rem
+    font-weight: 600
+    &:hover, &:active
+        background-color: $darkenBittersweet !important
+        border: 1px solid $darkenBittersweet !important
+.clickable_td
+    color: $bittersweet
+    font-weight: bold
+    position: relative
+.clickable_td_emp
+    cursor: pointer
+    &:hover
+        text-decoration: underline
+// table -------------ends-------------------
+
+.react-datetime-picker__calendar,
+.react-datetime-picker__clock
+    z-index: 999 !important
+.table_container
+    position: relative
+.table_loading
+    background-color: rgba(233,236,239,.9)
+    position: absolute
+    padding-top: 0.5rem
+    width: 100%
+    top: 0
+    min-height: 200px
+    height: 100%
+    display: flex
+    z-index: 99
+    align-items: center
+    border-radius: 5px
+    justify-content: center
+.no_result
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    div
+        display: block
+        margin: 0 auto
+        padding-top: 1rem
+        svg
+            display: block
+            margin: 0 auto
+.profile_pic_share
+    width: 2.2rem
+    object-fit: cover
+    height: 2.2rem
+    border-radius: 50%
+.profile_pic_account
+    width: 2.2rem
+    border-radius: 50%
+    height: 2.2rem
+    object-fit: cover
+    margin-right: 1rem
+    border: 2px solid white
+    background: black
+.profile_picture_container
+    display: flex
+    justify-content: center
+    border-right: 1px solid white
+    height: 100%
+    position: relative
+    >div
+        img
+            width: 10rem
+            height: 10rem
+            border-radius: 50%
+            object-fit: cover
+            border: 2px solid white
+            background: white
+            margin: 0 auto
+            display: block
+        h5, p
+            text-align: center
+            font-weight: 600
+            margin-top: 2rem
+        p
+            padding: 0.2rem 1rem
+            background: white
+            border-radius: 28px
+.edit_profile_pic
+    background: white
+    height: 2rem
+    width: 2rem
+    justify-content: center
+    display: flex
+    align-items: center
+    border-radius: 50%
+    position: absolute
+    top: 120px
+    right: 55px
+    box-shadow: 0px 0px 5px 0px #6d6c6c
+    cursor: pointer
+.temp_image
+    img
+        width: 15rem
+        height: 15rem
+        object-fit: cover
+        border-radius: 50%
+        border: 3px dashed black
+// ================================
+// Skeleton box
+// ================================
+
+.skeleton-box, .skeleton-box-small
+    display: inline-block
+    height: 1.8em
+    width: 99%
+    position: relative
+    overflow: hidden
+    background-color: #ebe8eb
+    border-radius: 1rem
+    &::after
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        transform: translateX(-100%)
+        background-image: linear-gradient(90deg,rgba(#fff, 0) 0,rgba(#fff, 0.2) 20%,rgba(#fff, 0.5) 60%,rgba(#fff, 0))
+        animation: shimmer 1.2s infinite
+        content: ''
+.skeleton-box-small
+    width: 50%
+
+@keyframes shimmer
+    100%
+        transform: translateX(100%)
+.table_header_skeleton, .table_body_skeleton
+    margin-bottom: 1rem
+    &>div
+        display: flex
+    .skeleton-box
+        width: 16.66%
+        margin-right: 1rem
+        height: 3rem
+        &:last-child
+            margin-right: 0
+.table_body_skeleton
+    &>div
+        padding-bottom: 0.5rem
+        border-bottom: 1px solid #ebe8eb
+        margin-top: 0.5rem
+    .skeleton-box
+        height: 2rem
+
+.table_header_skeleton, .table_body_skeleton
+    .skeleton-box
+        &:nth-child(2)
+            width: 24%
+        &:nth-child(3)
+            width: 44%
+.input_custom_type_ahead
+    .rbt-input-multi
+        height: 3rem !important
+// ================================
+// Pricing Table
+// ================================
+.subscription_modal
+    .modal-dialog
+        max-width: 50vw
+    .container
+        margin: 0 auto
+        padding: 50px 0 0
+        max-width: 960px
+        width: 100%
+
+.panel
+    background-color: #fff
+    border-radius: 10px
+    padding: 15px 25px
+    position: relative
+    width: 100%
+    z-index: 10
+
+.pricing-table
+    box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.08), 0px 20px 31px 3px rgba(0, 0, 0, 0.09), 0px 8px 20px 7px rgba(0, 0, 0, 0.02)
+    display: flex
+    flex-direction: column
+
+@media (min-width: 900px)
+    .pricing-table
+        flex-direction: row
+
+.pricing-table *
+    text-align: center
+    text-transform: uppercase
+
+.pricing-plan
+    border-bottom: 1px solid #e1f1ff
+    padding: 25px
+
+    &:last-child
+        border-bottom: none
+
+@media (min-width: 900px)
+    .pricing-plan
+        border-bottom: none
+        border-right: 1px solid #e1f1ff
+        flex-basis: 100%
+        padding: 25px 50px
+        &:last-child
+            border-right: none
+
+.pricing-img
+    margin-bottom: 25px
+    max-width: 100%
+
+.pricing-header
+    color: #888
+    font-weight: 600
+    letter-spacing: 1px
+
+.pricing-features
+    color: #016FF9
+    font-weight: 600
+    letter-spacing: 1px
+    margin: 50px 0 25px
+    &-item
+        border-top: 1px solid #e1f1ff
+        font-size: 12px
+        line-height: 1.5
+        padding: 15px 0
+    &-item:last-child
+        border-bottom: 1px solid #e1f1ff
+
+.pricing-price
+    color: #016FF9
+    display: block
+    font-size: 32px
+    font-weight: 700
+
+.pricing-button
+    cursor: pointer
+    border: 1px solid #9dd1ff
+    border-radius: 10px
+    color: #348EFE
+    display: inline-block
+    margin: 25px 0
+    padding: 15px 35px
+    text-decoration: none
+    transition: all 150ms ease-in-out
+
+.pricing-button:hover,
+.pricing-button:focus
+    background-color: #e1f1ff
+
+.pricing-button.is-featured
+    background-color: #48aaff
+    color: #fff
+
+.pricing-button.is-featured:hover,
+.pricing-button.is-featured:active
+    background-color: #269aff

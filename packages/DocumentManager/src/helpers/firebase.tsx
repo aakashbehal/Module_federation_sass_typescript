@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage, deleteToken } from 'firebase/messaging';
-import { userService } from '../services';
+import { userService } from "singleSignOn/UserService";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -41,7 +41,6 @@ export const onMessageListener = () => {
 
 export const deleteFBToken = async () => {
     try {
-        console.log(messaging)
         return deleteToken(messaging)
     } catch (err: any) {
         throw err.message

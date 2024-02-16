@@ -1,10 +1,9 @@
-
-import { userService } from "."
+import { userService } from 'singleSignOn/UserService'
 import { handleResponse, axiosCustom } from "../helpers/util"
 
 const getFilterTypes = async (filterType: string) => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_COMMON_URL}/getLookUpListByGroupKeyVal/${filterType}/0`)
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_COMMON_CONFIG_SERVICE}/getLookUpListByGroupKeyVal/${filterType}/0`)
         const data = handleResponse(response)
         return data.response
     } catch (error: any) {
@@ -14,7 +13,7 @@ const getFilterTypes = async (filterType: string) => {
 
 const getLookupValues = async ({ lookupGroupKeyValue }: { lookupGroupKeyValue: string }) => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/lookupGroup/lookup`, {
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_COMMON_CONFIG_SERVICE}/v1/lookupGroup/lookup`, {
             params: {
                 lookupGroupKeyValue
             }
@@ -172,7 +171,7 @@ const fetchAllTypes = () => {
 
 const getDocumentTypes = async () => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/document/type`,
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_COMMON_CONFIG_SERVICE}/document/type`,
             {
                 params: {
                     pageSize: 100,
@@ -188,7 +187,7 @@ const getDocumentTypes = async () => {
 
 const getProductTypes = async () => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/document/require/product/type`)
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/document/require/product/type`)
         const data = handleResponse(response)
         // data.response = data.response.map((dr: any) => {
         //     dr.fullName = dr.name
@@ -212,7 +211,7 @@ const componentMap: any = {
 
 const saveColumn = async ({ parentComponent, showHideColumns }: any) => {
     try {
-        const response = await axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/attribute/preference/user`, {
+        const response = await axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/preference/view`, {
             tableName: componentMap[parentComponent],
             columnNames: showHideColumns,
             domainCode: 'DEBT'
@@ -226,9 +225,9 @@ const saveColumn = async ({ parentComponent, showHideColumns }: any) => {
 
 const getColumnForAllTables = async (table: string) => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/document/column`, {
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/preference/view/prefernceName`, {
             params: {
-                table
+                prefernceName: table
             }
         })
         const data = handleResponse(response)
@@ -240,7 +239,7 @@ const getColumnForAllTables = async (table: string) => {
 
 const getClientAccountNumbers = async () => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/document/summary/clientAccount`)
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/document/summary/clientAccount`)
         const data = handleResponse(response)
         return data.response
     } catch (error: any) {
@@ -250,7 +249,7 @@ const getClientAccountNumbers = async () => {
 
 const getUsage = async () => {
     try {
-        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/user/document/summary/usage`)
+        const response = await axiosCustom.get(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_DOCUMENT_SERVICE}/document/summary/usage`)
         const data = handleResponse(response)
         return data.response
     } catch (error: any) {

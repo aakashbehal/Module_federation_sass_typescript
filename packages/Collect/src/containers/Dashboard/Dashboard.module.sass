@@ -1,0 +1,183 @@
+@import "../../colors"
+.gridLayout
+    position: relative
+    transition: height 200ms ease
+
+.gridItem
+    transition: all 200ms ease
+    transition-property: left, top
+    header
+        padding: 1rem .5rem 1rem 1rem
+        display: flex
+        background: #ff7765
+        color: white
+        align-items: center
+        justify-content: space-between
+        border-bottom: 1px solid #e9ecef
+        // margin-bottom: 1rem
+        .actions
+            display: flex
+            align-content: center
+            button
+                background: none
+                color: black
+                padding: 0
+                border: 0
+            &::after
+                content: none
+        p
+            margin: 0
+            font-size: 12px
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+
+    &.cssTransforms
+        transition-property: transform
+
+    &.resizing
+        z-index: 1
+        will-change: width, height
+
+    &.react-draggable-dragging
+        transition: none
+        z-index: 3
+        will-change: transform
+
+    &.react-grid-placeholder
+        background: red
+        opacity: 0.2
+        transition-duration: 100ms
+        z-index: 2
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        -o-user-select: none
+        user-select: none
+
+    & > .react-resizable-handle
+        position: absolute
+        width: 20px
+        height: 20px
+        bottom: 5px
+        right: 5px
+        cursor: se-resize
+
+    & > .react-resizable-handle::after
+        content: ""
+        position: absolute
+        right: 3px
+        bottom: 3px
+        width: 5px
+        height: 5px
+        border-right: 2px solid rgba(0, 0, 0, 0.4)
+        border-bottom: 2px solid rgba(0, 0, 0, 0.4)
+
+    &:not(.react-grid-placeholder)
+        background: #ffffff
+        border: 1px solid #e9ecef
+        border-radius: .5rem
+        box-shadow: 0px 2px 2px #e9ecef
+.chart_container
+    position: relative
+    height: 100%
+    overflow: hidden
+.chart
+    padding: 1rem 0 0 0
+    position: relative
+    height: 85%
+.chartWidget
+    padding: 0 .5rem 1rem .5rem
+    height: 100%
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+.numberWidget
+    // padding: 1rem 0
+    display: flex
+    justify-content: space-between
+.ytd, .mtd
+    text-align: center
+    flex: 1
+    flex-basis: 33%
+    display: flex
+    flex-direction: column
+    h4
+        font-size: 14px
+        font-weight: 800
+        margin-top: 0.5rem
+.percentage
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    padding: 1rem 1rem
+    h1, p
+        margin: 0
+    h1
+        width: 100%
+        text-align: center
+        font-size: 26px
+    p
+        display: flex
+        align-items: center
+
+.info
+    position: absolute
+    height: 110%
+    padding: 1rem
+    width: 100%
+    left: 0
+    transition: bottom ease 0.5s
+    background: rgba(0, 0, 0, 0.8)
+    color: white
+.info_off
+    bottom: -120%
+    opacity: 0
+.info_on
+    overflow: scroll
+    bottom: -10%
+    opacity: 1
+
+.chart_type
+    position: absolute
+    height: 110%
+    padding: 1rem
+    width: 100%
+    left: 0
+    transition: bottom ease 0.5s
+    background: rgba(0, 0, 0, 1)
+    color: white
+
+.chart_type_header
+    display: flex
+    justify-content: space-between
+    p:last-child
+        cursor: pointer
+.chart_type_off
+    bottom: -120%
+    opacity: 0
+.chart_type_on
+    bottom: -10%
+    opacity: 1
+.chart_type_container>div
+    display: flex
+    justify-content: flex-start
+    margin-top: 2rem
+    flex-wrap: wrap
+    div
+        text-align: center
+        padding: 0.3rem
+        min-width: 32%
+        background: black
+        cursor: pointer
+        margin-bottom: 0.4rem
+        margin-left: 0.4rem
+        border-radius: 0.5rem
+        transition: background ease 0.3s
+        &:hover
+            background: $bittersweet
+            color: black
+        p
+            margin-bottom: 0

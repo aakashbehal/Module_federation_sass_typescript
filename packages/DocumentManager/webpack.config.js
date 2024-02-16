@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const deps = require('./package.json').dependencies
+const devDeps = require('./package.json').devDependencies
 require('dotenv').config('./.env')
 
 module.exports = {
@@ -11,6 +12,9 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
+        client: {
+            overlay: false
+        },
         port: 4002,
         headers: {
             "Access-Control-Allow-Origin": "*"
@@ -72,6 +76,9 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'documentManager',
             filename: 'remoteEntry.js',
+            remotes: {
+                'singleSignOn': 'singleSignOn@http://localhost:4001/remoteEntry.js'
+            },
             exposes: {
                 './documentApp': './src/bootstrap'
             },
@@ -86,6 +93,11 @@ module.exports = {
                     singleton: true,
                     eager: true,
                     requiredVersion: deps["react-dom"]
+                },
+                "react-bootstrap": {
+                    singleton: true,
+                    eager: true,
+                    requiredVersion: devDeps["react-bootstrap"]
                 }
             }
         }),

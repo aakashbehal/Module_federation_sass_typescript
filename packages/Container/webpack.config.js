@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const deps = require('./package.json').dependencies
+const devDeps = require('./package.json').devDependencies
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = {
@@ -23,18 +24,29 @@ module.exports = {
                     "css-loader",
                     "sass-loader",
                 ],
-            }
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
     devServer: {
+        client: {
+            overlay: false
+        },
         static: {
             directory: path.join(__dirname, 'public'),
         },
         compress: true,
-        port: 4000,
+        port: 3000,
         open: true,
         headers: {
             "Access-Control-Allow-Origin": "*"
@@ -45,6 +57,7 @@ module.exports = {
             name: 'container',
             remotes: {
                 'singleSignOn': 'singleSignOn@http://localhost:4001/remoteEntry.js',
+                'collect': 'collect@http://localhost:4003/remoteEntry.js',
                 'documentManager': 'documentManager@http://localhost:4002/remoteEntry.js'
             },
             shared: {
@@ -58,6 +71,11 @@ module.exports = {
                     singleton: true,
                     eager: true,
                     requiredVersion: deps["react-dom"]
+                },
+                "react-bootstrap": {
+                    singleton: true,
+                    eager: true,
+                    requiredVersion: devDeps["react-bootstrap"]
                 }
             }
         }),

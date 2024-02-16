@@ -1,14 +1,22 @@
 
 // import { history } from "../helpers";
+import { eventDispatcher } from "../routing/eventDispatcher";
 import { deleteFBToken } from "../helpers/firebase";
 import { handleResponse, axiosCustom } from "../helpers/util"
 
-const login = async (username: string, password: string) => {
+const login = async (username: string, password: string, type: string) => {
     try {
-        const response = await axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_USER_SERVICE}/login`, {
+        let requestObj = {
             loginKey: username.trim(),
             loginSecret: password.trim()
-        })
+        }
+        let response
+        console.log(type)
+        if (type === 'document_manager') {
+            response = await axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_USER_SERVICE}/login`, requestObj)
+        } else {
+            response = await axiosCustom.post(`${process.env.REACT_APP_BASE_URL2}/compliance-service/login`, requestObj)
+        }
         const data = handleResponse(response)
         if (data.response) {
             let jwtToken = data.response.token;
@@ -36,19 +44,20 @@ async function logout() {
     const FBToken = sessionStorage.getItem('FBToken')
     const user = getUser()
     try {
-        axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_USER_SERVICE}/logout`, {
-            principleId: user.principleId,
-            loginKey: user.loginKey
-        })
+        // axiosCustom.post(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_USER_SERVICE}/logout`, {
+        //     principleId: user.principleId,
+        //     loginKey: user.loginKey
+        // })
 
-        axiosCustom.patch(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_COMMON_CONFIG_SERVICE}/v1/token/delete`, {}, {
-            params: {
-                userId: user.principleId,
-                token: FBToken
-            }
-        })
+        // axiosCustom.patch(`${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_COMMON_CONFIG_SERVICE}/v1/token/delete`, {}, {
+        //     params: {
+        //         userId: user.principleId,
+        //         token: FBToken
+        //     }
+        // })
         localStorage.removeItem('user');
         sessionStorage.clear()
+        eventDispatcher('logout')
         // history.push('/login')
         await deleteFBToken()
     } catch (error: any) {

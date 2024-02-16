@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const deps = require('./package.json').dependencies
+const devDeps = require('./package.json').devDependencies
 require('dotenv').config('./.env')
 
 module.exports = {
@@ -11,7 +12,11 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
+        client: {
+            overlay: false
+        },
         port: 4001,
+        historyApiFallback: true,
         headers: {
             "Access-Control-Allow-Origin": "*"
         }
@@ -30,6 +35,10 @@ module.exports = {
             {
                 test: /\.s?ass$/,
                 oneOf: [
+
+                    {
+                        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+                    },
                     {
                         test: /\.module\.s?ass$/,
                         use: [
@@ -44,9 +53,6 @@ module.exports = {
                             },
                             "sass-loader"
                         ]
-                    },
-                    {
-                        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
                     }
                 ]
             },
@@ -73,7 +79,10 @@ module.exports = {
             name: 'singleSignOn',
             filename: 'remoteEntry.js',
             exposes: {
-                './authApp': './src/bootstrap'
+                './authApp': './src/bootstrap',
+                './LogoutButton': './src/components/LogoutButton',
+                './TopNavigation': './src/components/TopNavigation/TopNavigation',
+                './UserService': './src/services/user.service'
             },
             shared: {
                 ...deps,
@@ -86,6 +95,11 @@ module.exports = {
                     singleton: true,
                     eager: true,
                     requiredVersion: deps["react-dom"]
+                },
+                "react-bootstrap": {
+                    singleton: true,
+                    eager: true,
+                    requiredVersion: devDeps["react-bootstrap"]
                 }
             }
         }),

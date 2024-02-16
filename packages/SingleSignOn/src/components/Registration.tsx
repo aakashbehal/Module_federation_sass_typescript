@@ -65,21 +65,21 @@ const Registration = () => {
 
 
     useEffect(() => {
-        const userD: any = localStorage.getItem('registerUser')
-        if (userD) {
-            let _formData = formData
-            let newData = {
-                firstName: JSON.parse(userD)[0].consumer.firstName,
-                middleName: JSON.parse(userD)[0].consumer.middleName,
-                lastName: JSON.parse(userD)[0].consumer.lastName,
-                emailAddress: JSON.parse(userD)[0].email.email,
-                phone: JSON.parse(userD)[0].phone.phone,
-                orgType: JSON.parse(userD)[0].phone.orgType,
-                clientId: JSON.parse(userD)[0].account.clientId,
-                partnerId: JSON.parse(userD)[0].account.partnerId,
-            }
-            setFormData({ ..._formData, ...newData })
-        }
+        localStorage.clear()
+        // if (userD) {
+        //     let _formData = formData
+        //     let newData = {
+        //         firstName: JSON.parse(userD)[0].consumer.firstName,
+        //         middleName: JSON.parse(userD)[0].consumer.middleName,
+        //         lastName: JSON.parse(userD)[0].consumer.lastName,
+        //         emailAddress: JSON.parse(userD)[0].email.email,
+        //         phone: JSON.parse(userD)[0].phone.phone,
+        //         orgType: JSON.parse(userD)[0].phone.orgType,
+        //         clientId: JSON.parse(userD)[0].account.clientId,
+        //         partnerId: JSON.parse(userD)[0].account.partnerId,
+        //     }
+        //     setFormData({ ..._formData, ...newData })
+        // }
     }, [])
 
     useEffect(() => {

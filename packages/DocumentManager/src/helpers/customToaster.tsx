@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { DefaultToast } from 'react-toast-notifications';
 import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { AiFillQuestionCircle } from "react-icons/ai";
@@ -13,8 +13,7 @@ export const MyCustomToast = ({ children, ...props }: any) => (
                 <br />
                 <br />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Button variant='dark' style={{ marginRight: '1rem' }} onClick={() => {
-                    }}>Report Issue</Button>
+                    <Button variant='dark' style={{ marginRight: '1rem' }}>Report Issue</Button>
                     <OverlayTrigger
                         placement="right"
                         delay={{ show: 250, hide: 400 }}

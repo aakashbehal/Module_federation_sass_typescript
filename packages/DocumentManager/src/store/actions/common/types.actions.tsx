@@ -7,7 +7,7 @@ import {
 } from "../../types.d";
 import { commonServices } from "../../../services"
 
-export const TypesActionCreator = {
+export const TypesActionCreator: any = {
 
     getDocTypes: (type: any) => (dispatch: any) => {
         const request = () => ({ type: DocTypes.DOC_TYPES_REQUEST })

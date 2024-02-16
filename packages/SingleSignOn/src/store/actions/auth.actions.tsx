@@ -2,14 +2,14 @@ import { AuthTypes } from "../types.d";
 import { userService } from "../../services"
 
 export const LoginActionCreator: any = {
-    login: ({ username, password }: { username: string, password: string }) => (dispatch: any) => {
+    login: ({ username, password, type }: { username: string, password: string, type: string }) => (dispatch: any) => {
         const request = (user: any) => ({ type: AuthTypes.LOGIN_REQUEST, payload: user })
         const success = (user: any) => ({ type: AuthTypes.LOGIN_SUCCESS, payload: user })
         const failure = (user: any) => ({ type: AuthTypes.LOGIN_FAILURE, payload: user })
 
         dispatch(request({ username }))
-
-        userService.login(username, password)
+        console.log(type)
+        userService.login(username, password, type)
             .then(
                 user => {
                     dispatch(success(user))

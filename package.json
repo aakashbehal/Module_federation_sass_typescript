@@ -3,7 +3,8 @@
   "workspaces": [
     "packages/Container",
     "packages/SingleSignOn",
-    "packages/DocumentManager"
+    "packages/DocumentManager",
+    "packages/Collect"
   ],
   "version": "1.0.0",
   "description": "",

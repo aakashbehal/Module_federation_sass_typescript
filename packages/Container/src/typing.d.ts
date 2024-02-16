@@ -1,9 +1,11 @@
-declare module 'singleSignOn/authApp' {
-    const authApp: React.ComponentType;
-    export default authApp
-}
+declare module 'singleSignOn/authApp'
+declare module 'singleSignOn/TopNavigation'
+declare module 'singleSignOn/UserService'
 
-declare module 'documentManager/documentApp' {
-    const documentApp: React.ComponentType;
-    export default documentApp
-}
+declare module 'collect/collectApp'
+
+declare module 'documentManager/documentApp'
+
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.png';

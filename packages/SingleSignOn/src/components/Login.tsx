@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Row, Col } from "react-bootstrap"
 import { CgSpinnerAlt } from "react-icons/cg"
-// import { useToasts } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
 import ReCAPTCHA from "react-google-recaptcha";
 
 import Styles from './Login.module.sass';
@@ -12,9 +12,10 @@ import { encryptPassword } from "../helpers/util"
 import { userService } from "../services";
 import { requestForToken } from "../helpers/firebase"
 import { useNavigate } from "react-router-dom";
+import { eventDispatcher } from "../routing/eventDispatcher";
 
 const Login = () => {
-    // const { addToast, removeAllToasts } = useToasts();
+    const { addToast, removeAllToasts } = useToasts();
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const usernameRef: any = useRef(null);
@@ -25,7 +26,7 @@ const Login = () => {
     })
     const [formIsInvalid, setFormIsInvalid] = useState<any>(false)
     const [disabledSubmit, setDisabledSubmit] = useState(false)
-
+    const [applicationType, setApplicationType] = useState<string>('document_manager')
     const { user, error, loading } = useSelector((state: any) => ({
         user: state?.singleSignOn?.auth?.user,
         error: state?.singleSignOn?.auth?.error,
@@ -33,23 +34,25 @@ const Login = () => {
     }))
 
     useEffect(() => {
+        console.log(applicationType)
+    }, [applicationType])
+
+    useEffect(() => {
         if (error) {
-            // addToast(error, { appearance: 'error', autoDismiss: false })
-            console.log(error)
+            addToast(error, { appearance: 'error', autoDismiss: false })
         }
     }, [error])
 
     useEffect(() => {
         if (user && JSON.stringify(user) !== "{}") {
-            requestForToken()
-            // removeAllToasts()
+            // requestForToken()
+            removeAllToasts()
             if (userService.isPasswordResetRequired()) {
-                // addToast("Password expired, Please change Password", { appearance: 'error', autoDismiss: false })
+                addToast("Password expired, Please change Password", { appearance: 'error', autoDismiss: false })
                 dispatch(LoginActionCreator.resetUser())
-                // history.push('/change_password')
+                navigate('/change_password')
             } else {
-                // history.push('/documents/my_documents')
-                navigate('/document_manager/my_documents', { replace: true })
+                eventDispatcher('login')
             }
         }
     }, [user])
@@ -117,8 +120,9 @@ const Login = () => {
         const username: any = usernameRef.current && usernameRef.current.value;
         const password: any = passwordRef.current && passwordRef.current.value;
         const enPass = encryptPassword(password)
+        console.log(applicationType)
         if (validateLoginForm(username, enPass)) {
-            dispatch(LoginActionCreator.login({ username, password: enPass }))
+            dispatch(LoginActionCreator.login({ username, password: enPass, type: applicationType }))
         }
     }
 
@@ -150,6 +154,27 @@ const Login = () => {
                     <h5>User Authentication</h5>
                     <br />
                     <Form className={Styles.login_form}>
+                        <Form.Group as={Row}>
+                            <Form.Label column md={5} sm={12} style={{
+                                textAlign: 'right',
+                                color: !applicationType ? '#FF7765' : 'black',
+                                fontWeight: !applicationType ? 600 : 'normal'
+                            }}>EQ Collect</Form.Label>
+                            <Col md={2} sm={12} style={{ textAlign: 'center', marginTop: '5px' }}>
+                                <input
+                                    type="checkbox"
+                                    className="switch"
+                                    onChange={(e) => setApplicationType((prevApplicationType) => prevApplicationType === 'document_manager' ? 'eqCollect' : 'document_manager')}
+                                    name="applicationType"
+                                    checked={applicationType === 'document_manager'}
+                                    defaultChecked={applicationType === 'document_manager'} />
+                            </Col>
+                            <Form.Label column md={5} sm={12} style={{
+                                textAlign: 'left',
+                                color: applicationType ? '#FF7765' : 'black',
+                                fontWeight: applicationType ? 600 : 'normal'
+                            }}>Document Manager</Form.Label>
+                        </Form.Group>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Control
                                 type="text"
@@ -170,7 +195,7 @@ const Login = () => {
                         </Form.Group>
                         <p className={Styles.forgot_password} onClick={
                             () => {
-                                navigate('/registration')
+                                navigate('/forgot_password')
                             }
                         }>Forgot Password</p>
                         {/* {

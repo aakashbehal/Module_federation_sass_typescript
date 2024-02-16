@@ -1,19 +1,19 @@
-import React from 'react'
-import { BrowserRouter, HashRouter, MemoryRouter, Route, Routes, useResolvedPath } from "react-router-dom"
-import Login from './components/Login';
-import Registration from './components/Registration';
+import React, { useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import reducer from './store/reducer';
 
+export const remoteAppScope = 'singleSignOn'
 
-const App = () => {
+const App = ({ router, store }: any) => {
 
+    useEffect(() => {
+        store.injectReducer(remoteAppScope, reducer)
+    }, [])
 
     return (
-        <HashRouter basename='/authentication'>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<Registration />} />
-            </Routes>
-        </HashRouter>
+        <>
+            <RouterProvider router={router} />
+        </>
     )
 }
 

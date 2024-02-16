@@ -1,14 +1,18 @@
-import React from 'react'
-import { HashRouter, Route, Routes } from "react-router-dom"
-import DocumentManager from './components/DocumentManager';
+import React, { useEffect } from 'react'
+import { RouterProvider } from "react-router-dom"
+import reducer from './store/reducer';
 
-const App = () => {
+export const remoteAppScope = 'documentManager'
+
+const App = ({ router, store }: any) => {
+    useEffect(() => {
+        store.injectReducer(remoteAppScope, reducer)
+    }, [])
+
     return (
-        <HashRouter basename='/document_manager'>
-            <Routes>
-                <Route path="/my_documents" element={<DocumentManager />} />
-            </Routes>
-        </HashRouter>
+        <>
+            <RouterProvider router={router} />
+        </>
     )
 }
 

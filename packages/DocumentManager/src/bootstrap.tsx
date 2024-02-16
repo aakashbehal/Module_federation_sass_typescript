@@ -1,30 +1,41 @@
 import React, { useEffect } from 'react';
-import './index.sass'
-// import { ToastProvider } from 'react-toast-notifications';
-// import { MyCustomToast } from './helpers/customToaster';
+import { createRoot } from "react-dom/client";
 import { Provider } from 'react-redux';
-import reducer from './store/reducer';
-import { httpInterceptor } from './helpers/util';
-import App from './App';
 
-export const remoteAppScope = 'documentManager'
+import { createRouter } from './routing/router-factory';
+import { RoutingStrategy } from './routing/types';
+import './index.sass'
+import App from './App';
+import { ToastProvider } from 'react-toast-notifications';
+import { MyCustomToast } from './helpers/customToaster';
+import { httpInterceptor } from './helpers/util';
 
 httpInterceptor()
 
-const remoteLoginApp = (props: { store: any }) => {
-    let { store } = props;
+const mount = ({
+    store,
+    mountPoint,
+    initialPathname,
+    routingStrategy
+}: {
+    store: any,
+    mountPoint: HTMLElement;
+    initialPathname?: string;
+    routingStrategy?: RoutingStrategy;
+}) => {
 
-    useEffect(() => {
-        store.injectReducer(remoteAppScope, reducer)
-    }, [])
+    const router = createRouter({ strategy: routingStrategy, initialPathname });
+    const root = createRoot(mountPoint);
 
-    return (
-        // <ToastProvider components={{ Toast: MyCustomToast }} placement="top-center" autoDismissTimeout={10000} >
-        <Provider store={store || {}}>
-            <App />
-        </Provider>
-        // </ToastProvider >
+    root.render(
+        <ToastProvider components={{ Toast: MyCustomToast }} placement="top-center" autoDismissTimeout={10000}>
+            <Provider store={store || {}}>
+                <App router={router} store={store} />
+            </Provider>
+        </ToastProvider>
     )
+
+    return () => queueMicrotask(() => root.unmount());
 }
 
-export default remoteLoginApp
+export { mount }
